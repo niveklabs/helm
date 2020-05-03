@@ -5,7 +5,7 @@ variable "atomic" {
 }
 
 variable "chart" {
-  description = "(required) - Chart name to be installed."
+  description = "(required) - Chart name to be installed. A path may be used."
   type        = string
 }
 
@@ -16,8 +16,14 @@ variable "cleanup_on_fail" {
 }
 
 variable "dependency_update" {
-  description = "(optional) - run helm dependency update before installing the chart"
+  description = "(optional) - Run helm dependency update before installing the chart"
   type        = bool
+  default     = null
+}
+
+variable "description" {
+  description = "(optional) - Add a custom description"
+  type        = string
   default     = null
 }
 
@@ -29,6 +35,12 @@ variable "devel" {
 
 variable "disable_crd_hooks" {
   description = "(optional) - Prevent CRD hooks from, running, but run other hooks.  See helm install --no-crd-hook"
+  type        = bool
+  default     = null
+}
+
+variable "disable_openapi_validation" {
+  description = "(optional) - If set, the installation process will not validate rendered templates against the Kubernetes OpenAPI Schema"
   type        = bool
   default     = null
 }
@@ -81,7 +93,7 @@ variable "render_subchart_notes" {
 }
 
 variable "replace" {
-  description = "(optional) - re-use the given name, even if that name is already used. This is unsafe in production"
+  description = "(optional) - Re-use the given name, even if that name is already used. This is unsafe in production"
   type        = bool
   default     = null
 }
@@ -168,6 +180,16 @@ variable "wait" {
   description = "(optional) - Will wait until all resources are in a ready state before marking the release as successful."
   type        = bool
   default     = null
+}
+
+variable "postrender" {
+  description = "nested mode: NestingList, min items: 0, max items: 1"
+  type = set(object(
+    {
+      binary_path = string
+    }
+  ))
+  default = []
 }
 
 variable "set" {
