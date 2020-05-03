@@ -3,7 +3,7 @@
 [embedmd]:# (helm.tf)
 ```tf
 provider "helm" {
-  version = "1.1.0"
+  version = "1.1.1"
 
   debug                  = null
   helm_driver            = null
